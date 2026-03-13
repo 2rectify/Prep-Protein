@@ -774,57 +774,57 @@
         box-sizing: border-box;
       }
 
-      /* Hero */
-      .hero { padding: 14vw 0 12vw; min-height: 90vh; }
-      .hero h1 { font-size: 10vw !important; line-height: 1.05; }
-      .hero h1 em { font-size: inherit !important; }
-      .hero p { font-size: 2.4vw !important; margin-bottom: 4vw; max-width: 70vw; }
-      .hero-btns a { font-size: 1.8vw !important; padding: 1.5vw 3.5vw; }
-      .hero-stat-num { font-size: 6vw !important; }
-      .hero-stat-label { font-size: 1.6vw !important; }
-      .hero-stats { gap: 8vw; margin-top: 6vw; padding-top: 4vw; }
-
       /* Nav */
-      nav { height: 4vw; }
-      .nav-logo { font-size: 6.0vw !important; }
-      .nav-links a { font-size: 4.0vw !important; }
+      nav { height: 3.5rem; }
+      .nav-logo { font-size: 1.3rem !important; }
+      .nav-links a { font-size: 0.9rem !important; }
+
+      /* Hero */
+      .hero { padding: 8vw 0 6vw; min-height: 80vh; }
+      .hero h1 { font-size: 6vw !important; line-height: 1.05; }
+      .hero h1 em { font-size: inherit !important; }
+      .hero p { font-size: 1.4vw !important; margin-bottom: 3vw; max-width: 70vw; }
+      .hero-btns a { font-size: 1.1vw !important; padding: 1vw 2.5vw; }
+      .hero-stat-num { font-size: 3.5vw !important; }
+      .hero-stat-label { font-size: 1vw !important; }
+      .hero-stats { gap: 6vw; margin-top: 4vw; padding-top: 3vw; }
 
       /* Feature strip */
-      .feature-item { height: 60vw !important; }
-      .feature-title { font-size: 7.2vw !important; }
-      .feature-desc { font-size: 4.4vw !important; }
+      .feature-item { height: 35vw !important; }
+      .feature-title { font-size: 1.8vw !important; }
+      .feature-desc { font-size: 1.1vw !important; }
 
       /* Sections */
       .section { padding: 5vw 0; }
-      .section-label { font-size: 4.0vw !important; }
-      .section-title { font-size: 8vw !important; }
-      .section-sub { font-size: 5.6vw !important; }
+      .section-label { font-size: 0.9vw !important; }
+      .section-title { font-size: 3.5vw !important; }
+      .section-sub { font-size: 1.2vw !important; }
 
       /* Recipe cards */
-      .recipe-img { height: 36vw !important; }
+      .recipe-img { height: 20vw !important; }
       .recipe-body { padding: 1.5vw; }
-      .recipe-title { font-size: 6.0vw !important; }
-      .recipe-desc { font-size: 4.4vw !important; }
-      .recipe-meta { font-size: 3.6vw !important; }
+      .recipe-title { font-size: 1.4vw !important; }
+      .recipe-desc { font-size: 1vw !important; }
+      .recipe-meta { font-size: 0.85vw !important; }
 
       /* CTA banner */
       .cta-banner { padding: 6vw 0; }
-      .cta-banner-inner h2 { font-size: 8vw !important; margin-bottom: 2vw; }
-      .cta-banner p { font-size: 7.2vw !important; margin-bottom: 2.5vw; }
-      .cta-banner .btn-primary { font-size: 5.6vw !important; padding: 1.2vw 3vw; }
+      .cta-banner-inner h2 { font-size: 4vw !important; margin-bottom: 2vw; }
+      .cta-banner p { font-size: 1.5vw !important; margin-bottom: 2.5vw; }
+      .cta-banner .btn-primary { font-size: 1.2vw !important; padding: 1vw 2.5vw; }
 
       /* Footer */
       footer { padding: 4vw 0; }
-      .footer-logo { font-size: 10.0vw !important; margin-bottom: 1vw; }
-      .footer-tagline { font-size: 5.2vw !important; margin-bottom: 1.5vw; }
+      .footer-logo { font-size: 2.5vw !important; margin-bottom: 1vw; }
+      .footer-tagline { font-size: 1.2vw !important; margin-bottom: 1.5vw; }
       .footer-links { gap: 3vw; margin-bottom: 1.5vw; }
-      .footer-links a { font-size: 4.8vw !important; }
-      .footer-copy { font-size: 3.6vw !important; }
+      .footer-links a { font-size: 1.2vw !important; }
+      .footer-copy { font-size: 0.8vw !important; }
 
       /* Page hero */
       .page-hero { padding: 6vw 0; }
-      .page-hero h2 { font-size: 8vw !important; }
-      .page-hero p { font-size: 6.4vw !important; }
+      .page-hero h2 { font-size: 4vw !important; }
+      .page-hero p { font-size: 1.4vw !important; }
 
       /* Recipe page */
       .recipe-hero-img { height: 40vw; }
