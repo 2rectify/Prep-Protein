@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recipes — Prep and Protein</title>
+  <meta name="description" content="Browse all high protein meal prep recipes. Full macros, prep time and storage tips on every recipe." />
+  <link rel="canonical" href="https://www.prepandprotein.com.au/recipes.html" />
+  <meta property="og:title" content="Recipes — Prep and Protein" />
+  <meta property="og:description" content="Browse all high protein meal prep recipes. Full macros, prep time and storage tips on every recipe." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.prepandprotein.com.au/recipes.html" />
+  <meta property="og:locale" content="en_AU" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,800;1,500;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="site-nav"></div>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <p class="sub">Browse Recipes</p>
+    <h2>All Recipes</h2>
+    <p>Every recipe comes with full macros, prep time and meal prep tips.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-inner">
+    <!-- Filter tabs ... "all" shows everything. data-cat on each card must match the filter value exactly. -->
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterRecipes('all', this)">All</button>
+      <button class="filter-tab" onclick="filterRecipes('curry', this)">Curry</button>
+      <button class="filter-tab" onclick="filterRecipes('chicken', this)">Chicken</button>
+      <button class="filter-tab" onclick="filterRecipes('beef', this)">Beef</button>
+      <button class="filter-tab" onclick="filterRecipes('fish', this)">Fish</button>
+      <button class="filter-tab" onclick="filterRecipes('breakfast', this)">Breakfast</button>
+      <button class="filter-tab" onclick="filterRecipes('snacks', this)">Snacks</button>
+      <button class="filter-tab" onclick="filterRecipes('vegetarian', this)">Vegetarian</button>
+    </div>
+
+    <!-- Recipe grid ... each card that has a full page uses href on the card wrapper.
+         Cards without a full page yet are plain divs. -->
+    <div class="recipes-grid" id="recipesGrid">
+      <div class="recipe-card" data-cat="curry">
+        <div class="recipe-img">
+          <img src="https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=600&q=80&auto=format&fit=crop" alt="Massaman Curry" loading="lazy">
+          <span class="recipe-tag">Curry</span>
+        </div>
+        <div class="recipe-body">
+          <div class="recipe-title">Massaman Curry</div>
+          <div class="recipe-desc">Rich, slow-cooked Thai curry with tender beef, potato and roasted peanuts in a fragrant coconut broth.</div>
+          <div class="recipe-macros">
+            <span class="macro-pill protein">&#128170; 38g protein</span>
+            <span class="macro-pill cals">&#128293; 520 cal</span>
+          </div>
+          <div class="recipe-meta">
+            <span>&#9200; 45 mins</span>
+            <span>&#127869; 4 serves</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="recipe-card" data-cat="curry">
+        <div class="recipe-img">
+          <img src="https://images.unsplash.com/photo-1548943487-a2e4e43b4853?w=600&q=80&auto=format&fit=crop" alt="Penang Curry" loading="lazy">
+          <span class="recipe-tag">Curry</span>
+        </div>
+        <div class="recipe-body">
+          <div class="recipe-title">Penang Curry</div>
+          <div class="recipe-desc">Thick, intensely flavoured Malaysian curry with chicken, kaffir lime and a rich peanut-coconut base.</div>
+          <div class="recipe-macros">
+            <span class="macro-pill protein">&#128170; 42g protein</span>
+            <span class="macro-pill cals">&#128293; 490 cal</span>
+          </div>
+          <div class="recipe-meta">
+            <span>&#9200; 35 mins</span>
+            <span>&#127869; 4 serves</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="beef-rendang.html" class="recipe-card recipe-card-link" data-cat="curry">
+        <div class="recipe-img">
+          <img src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80&auto=format&fit=crop" alt="Beef Rendang" loading="lazy">
+          <span class="recipe-tag">Curry</span>
+        </div>
+        <div class="recipe-body">
+          <div class="recipe-title">Beef Rendang</div>
+          <div class="recipe-desc">Slow-braised Indonesian beef in a deeply spiced coconut paste until fall-apart tender. Meal preps brilliantly.</div>
+          <div class="recipe-macros">
+            <span class="macro-pill protein">&#128170; 41.7g protein</span>
+            <span class="macro-pill cals">&#128293; 490 cal</span>
+          </div>
+          <div class="recipe-meta">
+            <span>&#9200; 3.5 hrs</span>
+            <span>&#127869; 10 serves</span>
+          </div>
+        </div>
+      </a>
+
+      <div class="recipe-card" data-cat="chicken">
+        <div class="recipe-img">
+          <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80&auto=format&fit=crop" alt="Chicken Meal Prep" loading="lazy">
+          <span class="recipe-tag">Chicken</span>
+        </div>
+        <div class="recipe-body">
+          <div class="recipe-title">Garlic Butter Chicken</div>
+          <div class="recipe-desc">Simple pan-seared chicken thighs in a garlic butter sauce. Pairs with rice or roasted veg.</div>
+          <div class="recipe-macros">
+            <span class="macro-pill protein">&#128170; 44g protein</span>
+            <span class="macro-pill cals">&#128293; 410 cal</span>
+          </div>
+          <div class="recipe-meta">
+            <span>&#9200; 25 mins</span>
+            <span>&#127869; 4 serves</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="recipe-card" data-cat="fish">
+        <div class="recipe-img">
+          <img src="https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=600&q=80&auto=format&fit=crop" alt="Salmon" loading="lazy">
+          <span class="recipe-tag">Fish</span>
+        </div>
+        <div class="recipe-body">
+          <div class="recipe-title">Teriyaki Salmon</div>
+          <div class="recipe-desc">Oven-baked salmon with a simple teriyaki glaze. Ready in 20 minutes and freezes well.</div>
+          <div class="recipe-macros">
+            <span class="macro-pill protein">&#128170; 39g protein</span>
+            <span class="macro-pill cals">&#128293; 380 cal</span>
+          </div>
+          <div class="recipe-meta">
+            <span>&#9200; 20 mins</span>
+            <span>&#127869; 4 serves</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="recipe-card" data-cat="breakfast">
+        <div class="recipe-img">
+          <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=600&q=80&auto=format&fit=crop" alt="Egg Muffins" loading="lazy">
+          <span class="recipe-tag">Breakfast</span>
+        </div>
+        <div class="recipe-body">
+          <div class="recipe-title">Egg and Bacon Muffins</div>
+          <div class="recipe-desc">Grab and go egg muffins loaded with bacon, cheese and capsicum. Batch cook a dozen on Sunday.</div>
+          <div class="recipe-macros">
+            <span class="macro-pill protein">&#128170; 18g protein</span>
+            <span class="macro-pill cals">&#128293; 210 cal</span>
+          </div>
+          <div class="recipe-meta">
+            <span>&#9200; 30 mins</span>
+            <span>&#127869; 12 serves</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="shared.js"></script>
+<script>
+function filterRecipes(cat, btn) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#recipesGrid .recipe-card, #recipesGrid .recipe-card-link').forEach(card => {
+    card.style.display = (cat === 'all' || card.dataset.cat === cat) ? '' : 'none';
+  });
+}
+</script>
+</body>
+</html>
