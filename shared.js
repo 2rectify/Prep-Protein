@@ -33,14 +33,14 @@
   const footer = `
   <footer>
     <div class="footer-logo">Prep &amp; <span>Protein</span></div>
-    <p style="margin-bottom:0.75rem;">High protein meal prep for real people.</p>
+    <p class="footer-tagline">High protein meal prep for real people.</p>
     <div class="footer-links">
       <a href="index.html">Home</a>
       <a href="recipes.html">Recipes</a>
       <a href="guides.html">Meal Prep Guides</a>
       <a href="shop.html">Shop</a>
     </div>
-    <p style="font-size:0.7rem;opacity:0.4;">&#169; 2026 Prep &amp; Protein. All rights reserved.</p>
+    <p class="footer-copy">&#169; 2026 Prep &amp; Protein. All rights reserved.</p>
   </footer>`;
 
   // ── INJECT ───────────────────────────────────────────────────
