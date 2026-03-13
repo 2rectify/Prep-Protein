@@ -1,3 +1,64 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   PREP & PROTEIN — MASTER STYLESHEET
+   ═══════════════════════════════════════════════════════════════════════
+
+   ARCHITECTURE: Mobile-first responsive CSS
+   ───────────────────────────────────────────
+   Base styles = mobile (≤ 599px). Every rule outside a @media block
+   is the MOBILE default. Desktop overrides are layered on via
+   min-width breakpoints that ADD to (never replace) the base.
+
+   Breakpoints:
+     600px  — Tablet (2-col grids, wider feature items)
+     768px  — Small desktop (show nav links, typography bumps)
+     1024px — Desktop (full grid columns, roomier spacing)
+     1440px — Large desktop (slightly wider container, bigger headings)
+
+   ╔══════════════════════════════════════════════════════════════════╗
+   ║  RULES FOR KEEPING MOBILE + DESKTOP IN SYNC — READ THIS FIRST  ║
+   ╠══════════════════════════════════════════════════════════════════╣
+   ║                                                                  ║
+   ║  DO:                                                             ║
+   ║  ✓ Use rem / px for font sizes — they cap at a sane value        ║
+   ║  ✓ Use a single --content-max variable for ALL container widths  ║
+   ║  ✓ Use min-width breakpoints that ADD overrides, never reset     ║
+   ║  ✓ Let grids handle width via columns — cards stretch to fill    ║
+   ║  ✓ Keep padding in rem so it's proportional but bounded          ║
+   ║  ✓ Test at 375px, 768px, 1024px, 1440px, 1920px                 ║
+   ║                                                                  ║
+   ║  DON'T:                                                          ║
+   ║  ✗ Use vw units for font-size — text scales infinitely on        ║
+   ║    ultrawide monitors (2.7vw = 52px at 1920px!)                  ║
+   ║  ✗ Use vw for padding/heights — same unbounded scaling problem   ║
+   ║  ✗ Use !important in responsive blocks — makes overrides         ║
+   ║    impossible to maintain; only use for specificity wars like     ║
+   ║    .nav-cta overriding .nav-links a                              ║
+   ║  ✗ Set max-width: 92vw — there's no pixel cap, so on a 2560px   ║
+   ║    monitor your content is 2355px wide (way too wide)            ║
+   ║  ✗ Write separate mobile and desktop rules — write mobile base   ║
+   ║    then layer desktop on top. Two separate rule sets always       ║
+   ║    drift out of sync.                                            ║
+   ║  ✗ Put all desktop overrides in one mega @media block — group    ║
+   ║    by component so related rules stay together                   ║
+   ║  ✗ Scale the nav bar to 10rem+ tall on desktop — it eats the    ║
+   ║    viewport and looks wrong. Nav should be 64-76px max.          ║
+   ║                                                                  ║
+   ╚══════════════════════════════════════════════════════════════════╝
+   ═══════════════════════════════════════════════════════════════════════ */
+
+
+/* ── DESIGN TOKENS ──
+   Change these in ONE place and every component updates.
+   --content-max controls how wide content gets before it stops growing.
+   Breakpoints bump this value so desktop uses more screen real estate.
+
+   MOBILE: --content-max is 100% (full width, padding handles the edges).
+   1024px+: bumped to 1400px (fills most of 1920 without dead space).
+   1440px+: bumped to 1500px (graceful on ultrawide).
+
+   WHY NOT 1200px? On a 1920px screen, 1200px leaves 360px dead space
+   per side — that's the "too narrow, too much cream" problem.
+   1400px leaves ~260px per side = comfortable, not empty. */
 :root {
   --cream:    #FAF9FC;
   --cream2:   #F0EBF7;
@@ -13,8 +74,7 @@
   --condensed:'Playfair Display', serif;
   --body:     'DM Sans', sans-serif;
 
-  /* Layout tokens — single source of truth */
-  --content-max: 1200px;
+  --content-max: 100%;
   --content-pad: 1.5rem;
 }
 
@@ -27,9 +87,16 @@ body {
   overflow-x: hidden;
 }
 
-/* ─────────────────────────────────
-   UTILITY: shared container mixin
-   ───────────────────────────────── */
+
+/* ── CONTAINER PATTERN ──
+   Every major section wraps its content in an "-inner" div.
+   This inner div gets: max-width + auto margins + side padding.
+   The PARENT section can be full-bleed (colored backgrounds),
+   while the INNER constrains the text/cards to a readable width.
+
+   WHY: If you put max-width on the section itself, you lose the
+   full-width background color. Always separate "background wrapper"
+   from "content container". */
 .hero-inner,
 .section-inner,
 .page-hero-inner,
@@ -44,7 +111,9 @@ body {
 
 /* ══════════════════════════════════
    NAV
-   ══════════════════════════════════ */
+   ══════════════════════════════════
+   Height is fixed in px (not rem/vw) so it never balloons.
+   Mobile: 64px. Desktop: 72px. That's it. */
 nav {
   position: sticky;
   top: 0;
@@ -68,6 +137,7 @@ nav {
 }
 .nav-logo span { color: var(--orange2); font-style: italic; }
 
+/* Desktop nav links — hidden on mobile via base rule below */
 .nav-links {
   display: flex;
   align-items: center;
@@ -86,6 +156,8 @@ nav {
 }
 .nav-links a:hover { color: var(--cream); background: rgba(255,255,255,0.1); }
 
+/* !important is acceptable here — .nav-cta is a modifier on .nav-links a
+   and needs to win the specificity fight without nesting selectors deeper */
 .nav-cta { background: var(--orange) !important; color: var(--white) !important; font-weight: 600 !important; }
 .nav-cta:hover { background: var(--orange2) !important; }
 
@@ -100,6 +172,7 @@ nav {
 }
 .hamburger span { display: block; width: 22px; height: 2px; background: var(--cream); border-radius: 2px; }
 
+/* Mobile menu overlay — toggled via JS adding .open class */
 .mobile-menu {
   display: none;
   position: fixed;
@@ -130,14 +203,17 @@ nav {
   padding: 0.75rem;
 }
 
-/* Mobile: hide nav links, show hamburger */
+/* MOBILE BASE: hide desktop nav links, show hamburger.
+   Breakpoint at 768px flips this. */
 .nav-links { display: none; }
 .hamburger { display: flex; }
 
 
 /* ══════════════════════════════════
    BUTTONS
-   ══════════════════════════════════ */
+   ══════════════════════════════════
+   Font sizes in rem — they stay readable at every screen size
+   without needing breakpoint overrides. */
 .btn-primary {
   display: inline-block;
   background: var(--orange);
@@ -174,8 +250,10 @@ nav {
 
 
 /* ══════════════════════════════════
-   HERO
-   ══════════════════════════════════ */
+   HERO (home page)
+   ══════════════════════════════════
+   Full-bleed purple background. Content centered via .hero-inner container.
+   Padding in rem, not vw — so it doesn't blow out on ultrawide. */
 .hero {
   background: var(--purple);
   position: relative;
@@ -186,6 +264,8 @@ nav {
   align-items: center;
 }
 
+/* Decorative gradient overlays — positioned absolute so they
+   fill the hero regardless of content height */
 .hero::before {
   content: '';
   position: absolute;
@@ -224,6 +304,8 @@ nav {
   margin-bottom: 1.5rem;
 }
 
+/* Hero heading — mobile: 2.4rem, scaled up at breakpoints.
+   NEVER use vw for this. 6vw = 115px on 1920px screens. */
 .hero h1 {
   font-family: var(--condensed);
   font-size: 2.4rem;
@@ -271,8 +353,11 @@ nav {
 
 
 /* ══════════════════════════════════
-   SECTIONS (generic)
-   ══════════════════════════════════ */
+   SECTIONS (generic content blocks)
+   ══════════════════════════════════
+   .section = full-bleed wrapper (takes background color).
+   .section-inner = constrained content (max-width centered).
+   Padding on .section keeps content off edges on mobile. */
 .section { padding: 4rem var(--content-pad); }
 
 .section-label {
@@ -306,8 +391,10 @@ nav {
 
 
 /* ══════════════════════════════════
-   PAGE HERO (sub-pages)
-   ══════════════════════════════════ */
+   PAGE HERO (sub-pages: recipes, guides, shop)
+   ══════════════════════════════════
+   Full-bleed purple bar with centered text.
+   Same container pattern as main hero. */
 .page-hero {
   background: var(--purple);
   padding: 3.5rem var(--content-pad) 3rem;
@@ -335,8 +422,11 @@ nav {
 
 
 /* ══════════════════════════════════
-   RECIPE CARDS
-   ══════════════════════════════════ */
+   RECIPE CARDS (grid listing)
+   ══════════════════════════════════
+   Mobile: 1 column. Tablet: 2. Desktop: 4.
+   Cards fill available width — don't set fixed widths on them.
+   Let the grid columns + gap handle sizing. */
 .recipes-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -453,7 +543,8 @@ nav {
 
 /* ══════════════════════════════════
    PREP GUIDES
-   ══════════════════════════════════ */
+   ══════════════════════════════════
+   Mobile: 1 column. Tablet: 2. Desktop: 3. */
 .guides-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -520,7 +611,8 @@ nav {
 
 /* ══════════════════════════════════
    SHOP
-   ══════════════════════════════════ */
+   ══════════════════════════════════
+   Mobile: 1 column. Tablet: 2. Desktop: 3. */
 .shop-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -598,19 +690,22 @@ nav {
 
 
 /* ══════════════════════════════════
-   FEATURED STRIP (home page)
-   ══════════════════════════════════ */
+   FEATURED STRIP (home page image tiles)
+   ══════════════════════════════════
+   This is INTENTIONALLY full-bleed (no max-width container).
+   The image grid stretches edge-to-edge for visual impact.
+   Don't wrap this in --content-max. */
 .featured-strip {
   padding: 0;
   overflow: hidden;
 }
 
+/* Mobile: 2 columns. Desktop (768px+): 4 columns. */
 .features-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 4px;
-  max-width: 100%;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .feature-item {
@@ -714,8 +809,11 @@ footer a:hover { text-decoration: underline; }
 
 
 /* ══════════════════════════════════
-   RECIPE PAGE (individual)
-   ══════════════════════════════════ */
+   RECIPE DETAIL PAGE (individual recipe)
+   ══════════════════════════════════
+   The hero image and macro bar are full-bleed.
+   Body content is constrained by --content-max via .section-inner
+   or direct padding. The macro-bar-inner uses the container pattern. */
 .recipe-hero-img { width: 100%; height: 300px; overflow: hidden; }
 .recipe-hero-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -731,12 +829,15 @@ footer a:hover { text-decoration: underline; }
 .macro-btn { font-size: 0.78rem; font-weight: 600; padding: 0.4rem 1.1rem; border-radius: 20px; border: none; cursor: pointer; background: rgba(255,255,255,0.15); color: rgba(250,249,252,0.7); }
 .macro-btn-active { background: var(--orange) !important; color: white !important; }
 
+/* Mobile: 3 columns (wraps to fit). Tablet+: 5 columns. */
 .macro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; text-align: center; }
 .macro-cell { background: rgba(0,0,0,0.15); border-radius: 10px; padding: 0.75rem 0.25rem; }
 .macro-val { font-family: var(--condensed); font-size: 1.5rem; font-weight: 700; color: var(--orange2); }
 .macro-lbl { font-size: 0.65rem; color: rgba(250,249,252,0.55); text-transform: uppercase; letter-spacing: 0.06em; }
 .macro-rice-note { text-align: center; padding: 0.5rem 0 0; font-size: 0.68rem; color: rgba(250,249,252,0.45); letter-spacing: 0.06em; text-transform: uppercase; }
 
+/* Ingredients + Recipe Info side by side.
+   Mobile: stacked. Tablet+: 2 columns. */
 .recipe-body-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
 
 .recipe-section-title { font-family: var(--condensed); font-size: 1.2rem; font-weight: 700; color: var(--brown); margin-bottom: 1rem; }
@@ -763,9 +864,33 @@ footer a:hover { text-decoration: underline; }
 .tip { font-size: 0.9rem; color: var(--grey); padding: 0.3rem 0; line-height: 1.5; }
 
 
-/* ══════════════════════════════════════════════════════════════
-   RESPONSIVE — TABLET (≥ 600px)
-   ══════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+   ══════════════════════════════════════════════════════════════════════
+
+   HOW THIS WORKS:
+   Each breakpoint ADDS overrides on top of the mobile base.
+   Nothing is "replaced" — if you don't override a property here,
+   the mobile value still applies. This is why mobile-first works:
+   you only write the DIFFERENCES at each size.
+
+   ADDING A NEW COMPONENT:
+   1. Write the mobile style in the base section above
+   2. Only add a breakpoint override if the component CHANGES at that size
+   3. Usually that means grid columns and font-size bumps — nothing else
+
+   COMMON MISTAKES TO AVOID:
+   - Don't duplicate properties that haven't changed
+   - Don't use max-width breakpoints (that's desktop-first, not mobile-first)
+   - Don't put ALL overrides in one mega @media — it gets unreadable
+   - Don't use vw units anywhere in these blocks
+
+   ══════════════════════════════════════════════════════════════════════ */
+
+
+/* ── TABLET (≥ 600px) ──
+   Grids go from 1-col to 2-col. Macro grid gets all 5 columns.
+   This is the first breakpoint where side-by-side layouts kick in. */
 @media (min-width: 600px) {
   .recipes-grid       { grid-template-columns: repeat(2, 1fr); }
   .guides-grid        { grid-template-columns: repeat(2, 1fr); }
@@ -777,124 +902,146 @@ footer a:hover { text-decoration: underline; }
 }
 
 
-/* ══════════════════════════════════════════════════════════════
-   RESPONSIVE — SMALL DESKTOP (≥ 768px)
-   ══════════════════════════════════════════════════════════════ */
+/* ── SMALL DESKTOP (≥ 768px) ──
+   Nav switches from hamburger to inline links.
+   Typography gets first size bump. Feature strip goes 4-col. */
 @media (min-width: 768px) {
-  /* Show desktop nav, hide hamburger */
   .nav-links  { display: flex; }
   .hamburger  { display: none; }
 
-  /* Nav spacing */
   nav { padding: 0 2rem; }
   .nav-links { gap: 0.5rem; }
 
-  /* Hero gets roomier */
-  .hero { padding: 5rem 2rem 5rem; min-height: 500px; }
+  .hero { padding: 5rem 2rem; min-height: 500px; }
   .hero h1 { font-size: 3rem; }
   .hero p { font-size: 1.05rem; }
 
-  /* Section typography bumps */
   .section-title { font-size: 2rem; }
 
-  /* Page hero */
   .page-hero h2 { font-size: 2.2rem; }
 
-  /* Feature strip → 4 columns */
   .features-row { grid-template-columns: repeat(4, 1fr); }
   .feature-item { height: 220px; }
-  .feature-title { font-size: 1.1rem; }
+  .feature-title { font-size: 1.15rem; }
 
-  /* CTA */
   .cta-banner h2 { font-size: 2rem; }
+
+  .recipe-hero-img { height: 400px; }
 }
 
 
-/* ══════════════════════════════════════════════════════════════
-   RESPONSIVE — DESKTOP (≥ 1024px)
-   ══════════════════════════════════════════════════════════════ */
+/* ── DESKTOP (≥ 1024px) ──
+   --content-max goes from 100% to 1400px. This is the KEY change
+   that constrains content on wide screens while filling the space.
+
+   WHY 1400px AND NOT 1200px:
+   On 1920px screen → 1200px = 360px dead space per side (too much!)
+   On 1920px screen → 1400px = 260px per side (comfortable breathing room)
+   On 1440px screen → 1400px = 20px per side (nearly full width — perfect)
+
+   The padding bumps to 2.5rem for a bit more internal breathing room. */
 @media (min-width: 1024px) {
   :root {
-    --content-pad: 2rem;
+    --content-max: 1400px;
+    --content-pad: 2.5rem;
   }
 
-  /* Nav — proportional but capped */
+  /* Nav — slightly taller, bigger logo, but still capped in px.
+     NEVER set nav height in rem or vw — it should be a fixed, small bar. */
   nav { height: 72px; padding: 0 3rem; }
   .nav-logo { font-size: 1.75rem; }
-  .nav-links a { font-size: 0.9rem; padding: 0.45rem 1rem; }
+  .nav-links a { font-size: 0.9rem; padding: 0.5rem 1.1rem; }
+  .nav-links { gap: 0.35rem; }
 
-  /* Hero */
-  .hero { padding: 6rem 3rem 6rem; min-height: 560px; }
+  /* Hero — generous padding but in rem, not vw */
+  .hero { padding: 6rem 3rem; min-height: 560px; }
   .hero h1 { font-size: 3.5rem; }
-  .hero p { font-size: 1.1rem; max-width: 640px; margin-bottom: 2.5rem; }
-  .hero-btns a { font-size: 0.95rem; padding: 0.8rem 2rem; }
+  .hero p { font-size: 1.15rem; max-width: 680px; margin-bottom: 2.5rem; }
+  .hero-btns a { font-size: 0.95rem; padding: 0.85rem 2rem; }
   .hero-stat-num { font-size: 2.5rem; }
   .hero-stat-label { font-size: 0.8rem; }
-  .hero-stats { gap: 4rem; margin-top: 3.5rem; padding-top: 2.5rem; }
+  .hero-stats { gap: 4.5rem; margin-top: 3.5rem; padding-top: 2.5rem; }
 
-  /* Sections */
-  .section { padding: 5rem 2rem; }
+  /* Sections — wider sub text to fill the wider container */
+  .section { padding: 5rem 2.5rem; }
   .section-label { font-size: 0.75rem; }
   .section-title { font-size: 2.4rem; }
-  .section-sub { font-size: 1.05rem; max-width: 640px; }
+  .section-sub { font-size: 1.05rem; max-width: 700px; }
 
-  /* Grids — 4-col on desktop for recipes, 3-col for guides/shop */
-  .recipes-grid { grid-template-columns: repeat(4, 1fr); }
-  .guides-grid  { grid-template-columns: repeat(3, 1fr); }
-  .shop-grid    { grid-template-columns: repeat(3, 1fr); }
+  /* Grids — recipes 4-col, guides/shop 3-col.
+     Wider gap so cards don't feel cramped. */
+  .recipes-grid { grid-template-columns: repeat(4, 1fr); gap: 1.75rem; }
+  .guides-grid  { grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+  .shop-grid    { grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
 
-  /* Recipe cards */
-  .recipe-img   { height: 220px; }
+  /* Recipe cards — taller images to fill the wider columns */
+  .recipe-img   { height: 240px; }
   .recipe-body  { padding: 1.5rem; }
   .recipe-title { font-size: 1.2rem; }
   .recipe-desc  { font-size: 0.85rem; }
 
-  /* Feature strip */
-  .feature-item  { height: 300px; }
-  .feature-title { font-size: 1.3rem; }
-  .feature-desc  { font-size: 0.85rem; }
+  /* Feature strip — taller tiles for impact on big screens */
+  .feature-item  { height: 320px; }
+  .feature-title { font-size: 1.35rem; }
+  .feature-desc  { font-size: 0.88rem; }
 
-  /* CTA banner */
-  .cta-banner { padding: 5rem 2rem; }
+  /* CTA banner — more vertical padding, constrained text width */
+  .cta-banner { padding: 5rem 2.5rem; }
   .cta-banner h2 { font-size: 2.5rem; margin-bottom: 1rem; }
-  .cta-banner p { font-size: 1.05rem; margin-bottom: 2rem; }
+  .cta-banner p { font-size: 1.1rem; margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto; }
   .cta-banner .btn-primary { font-size: 0.95rem; padding: 0.85rem 2.25rem; }
 
-  /* Page hero */
-  .page-hero { padding: 5rem 2rem 4rem; }
+  /* Page hero — bigger heading, constrained subtitle width */
+  .page-hero { padding: 5rem 2.5rem 4rem; }
   .page-hero h2 { font-size: 2.8rem; }
-  .page-hero p { font-size: 1.05rem; }
+  .page-hero p { font-size: 1.1rem; max-width: 650px; margin-left: auto; margin-right: auto; }
 
-  /* Footer */
-  footer { padding: 3.5rem 2rem; }
+  /* Footer — more padding, slightly bigger text */
+  footer { padding: 3.5rem 2.5rem; }
   .footer-logo { font-size: 1.75rem; }
-  .footer-tagline { font-size: 0.9rem; }
-  .footer-links a { font-size: 0.85rem; }
+  .footer-tagline { font-size: 0.92rem; }
+  .footer-links { gap: 2rem; }
+  .footer-links a { font-size: 0.88rem; }
 
-  /* Recipe detail page */
-  .recipe-hero-img { height: 420px; }
+  /* Recipe detail page — taller hero image, bigger macro values,
+     wider gap between ingredients and recipe info columns */
+  .recipe-hero-img { height: 480px; }
+  .macro-bar { padding: 2rem var(--content-pad); }
+  .recipe-info-val { font-size: 1.25rem; }
+  .recipe-info-lbl { font-size: 0.7rem; }
+  .macro-val { font-size: 1.75rem; }
+  .macro-lbl { font-size: 0.7rem; }
+  .recipe-body-grid { gap: 4rem; }
+  .recipe-section-title { font-size: 1.4rem; }
 }
 
 
-/* ══════════════════════════════════════════════════════════════
-   RESPONSIVE — LARGE DESKTOP (≥ 1400px)
-   Slight bumps — everything is already capped by max-width
-   ══════════════════════════════════════════════════════════════ */
-@media (min-width: 1400px) {
+/* ── LARGE DESKTOP (≥ 1440px) ──
+   Container nudges to 1500px. Typography gets final bumps.
+   Most layout work was done at 1024px — this is polish.
+
+   On a 1920px screen: 1500px content = 210px per side.
+   On a 2560px monitor: 1500px content = 530px per side (still capped). */
+@media (min-width: 1440px) {
   :root {
-    --content-max: 1320px;
+    --content-max: 1500px;
   }
 
   .hero h1 { font-size: 4rem; }
-  .hero p { max-width: 700px; }
+  .hero p { max-width: 740px; }
   .hero-stat-num { font-size: 2.8rem; }
 
   .section-title { font-size: 2.8rem; }
+  .section-sub { max-width: 760px; }
 
-  .feature-item { height: 360px; }
+  .feature-item { height: 380px; }
   .feature-title { font-size: 1.5rem; }
-  .feature-desc { font-size: 0.9rem; }
+  .feature-desc { font-size: 0.92rem; }
 
   .cta-banner h2 { font-size: 3rem; }
   .page-hero h2 { font-size: 3.2rem; }
+
+  .recipe-img { height: 260px; }
+  .guides-grid { gap: 2rem; }
+  .shop-grid { gap: 2rem; }
 }
