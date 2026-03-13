@@ -178,7 +178,7 @@
     }
 
     .hero-inner {
-      max-width: 1100px;
+      max-width: 100%;
       margin: 0 auto;
       width: 100%;
       position: relative;
@@ -251,7 +251,7 @@
 
     /* ── SECTIONS ── */
     .section { padding: 4rem 1.5rem; }
-    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .section-inner { max-width: 100%; margin: 0 auto; }
 
     .section-label {
       font-size: 0.7rem;
@@ -297,7 +297,7 @@
       height: 4px;
       background: linear-gradient(90deg, var(--orange), var(--orange2), var(--lavender));
     }
-    .page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+    .page-hero-inner { max-width: 100%; margin: 0 auto; position: relative; z-index: 1; }
     .page-hero h2 {
       font-family: var(--condensed);
       font-size: 1.8rem;
@@ -578,7 +578,7 @@
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 4px;
-      max-width: 66.666%;
+      max-width: 100%;
       margin: 0 auto;
     }
 
@@ -679,6 +679,8 @@
       margin-bottom: 0.75rem;
     }
     .footer-logo span { color: var(--orange2); font-style: italic; }
+    .footer-tagline { margin-bottom: 0.75rem; }
+    .footer-copy { font-size: 0.7rem; opacity: 0.4; }
     footer a { color: var(--orange2); text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     .footer-links {
@@ -701,7 +703,7 @@
     .recipe-hero-img img { width:100%; height:100%; object-fit:cover; display:block; }
 
     .macro-bar { background:var(--purple); padding:1.5rem; }
-    .macro-bar-inner { max-width:1200px; margin:0 auto; }
+    .macro-bar-inner { max-width:100%; margin:0 auto; }
 
     .recipe-info-row { display:flex; border-bottom:1px solid rgba(255,255,255,0.12); margin-bottom:1.25rem; padding-bottom:1rem; }
     .recipe-info-cell { flex:1; text-align:center; border-left:1px solid rgba(255,255,255,0.12); }
@@ -758,18 +760,13 @@
 
     /* ── DESKTOP SCALING ── */
     @media (min-width: 1024px) {
-      /* Everything uses the same consistent width and padding */
-      .hero,
-      .featured-strip,
-      .section,
-      .page-hero,
-      .cta-banner { padding-left: 0; padding-right: 0; }
-
+      /* Consistent 90% width containers */
       .hero-inner,
       .section-inner,
       .page-hero-inner,
       .cta-banner-inner,
-      .macro-bar-inner {
+      .macro-bar-inner,
+      .features-row {
         width: 90%;
         max-width: 90%;
         margin: 0 auto;
@@ -777,25 +774,43 @@
         box-sizing: border-box;
       }
 
-      .features-row {
-        width: 90%;
-        max-width: 90%;
-        margin: 0 auto;
-      }
-
-      /* Font scaling */
+      /* Hero */
+      .hero { padding: 5rem 0 4rem; }
       .hero h1 { font-size: 5.5rem !important; line-height: 1.05; }
       .hero h1 em { font-size: inherit !important; }
       .hero p { font-size: 1.25rem !important; margin-bottom: 2.5rem; }
       .hero-stat-num { font-size: 2.5rem !important; }
       .hero-stat-label { font-size: 0.95rem !important; }
       .hero-stats { gap: 4rem; margin-top: 4rem; padding-top: 2.5rem; }
+
+      /* Sections */
+      .section { padding: 5rem 0; }
       .section-label { font-size: 0.85rem !important; }
       .section-title { font-size: 3rem !important; }
       .section-sub { font-size: 1.1rem !important; }
+
+      /* Recipe cards */
       .recipe-title { font-size: 1.3rem !important; }
       .recipe-desc { font-size: 0.95rem !important; }
+
+      /* Feature strip */
       .feature-title { font-size: 1.15rem !important; }
       .feature-desc { font-size: 0.85rem !important; }
+
+      /* CTA banner */
+      .cta-banner { padding: 6rem 0; }
+      .cta-banner-inner h2 { font-size: 4rem !important; margin-bottom: 1.5rem; }
+      .cta-banner p { font-size: 1.4rem !important; margin-bottom: 2.5rem; }
+      .cta-banner .btn-primary { font-size: 1.2rem !important; padding: 1.1rem 3rem; }
+
+      /* Footer */
+      .footer-logo { font-size: 2.2rem !important; }
+      .footer-tagline { font-size: 1.1rem !important; }
+      .footer-links a { font-size: 1.1rem !important; }
+      .footer-copy { font-size: 0.9rem !important; }
+
+      /* Page hero */
+      .page-hero { padding: 5rem 0 4rem; }
       .page-hero h2 { font-size: 3.5rem !important; }
+      .page-hero p { font-size: 1.2rem !important; }
     }
