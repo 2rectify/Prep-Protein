@@ -652,7 +652,7 @@
       top: 0; right: 0; bottom: 0; left: 0;
       background: radial-gradient(ellipse at center, rgba(176,156,200,0.25) 0%, transparent 70%);
     }
-    .cta-banner-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-banner-inner { max-width: 92vw; margin: 0 auto; position: relative; z-index: 1; }
     .cta-banner h2 {
       font-family: var(--condensed);
       font-size: 1.6rem;
@@ -798,7 +798,8 @@
       .section { padding: 5vw 0; }
       .section-label { font-size: 0.9vw !important; }
       .section-title { font-size: 3.5vw !important; }
-      .section-sub { font-size: 1.2vw !important; }
+      .section-sub { font-size: 1.2vw !important; max-width: 100% !important; }
+      .btn-outline { font-size: 1.1vw !important; padding: 0.8vw 2vw; }
 
       /* Recipe cards */
       .recipe-img { height: 20vw !important; }
