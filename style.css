@@ -758,15 +758,31 @@
 
     /* ── DESKTOP SCALING ── */
     @media (min-width: 1024px) {
-      .hero h1 { font-size: 4.5rem; }
-      .hero p { font-size: 1.2rem; max-width: 700px; }
+      /* Kill side padding on all containers so content fills the screen */
+      .hero { padding: 5rem 0 4rem; }
+      .hero-inner { max-width: 100%; padding: 0 5rem; box-sizing: border-box; }
+      .section { padding: 5rem 0; }
+      .section-inner { max-width: 100%; padding: 0 5rem; box-sizing: border-box; }
+      .page-hero { padding: 3.5rem 0 3rem; }
+      .page-hero-inner { max-width: 100%; padding: 0 5rem; box-sizing: border-box; }
+      .cta-banner { padding: 3.5rem 0; }
+      .cta-banner-inner { max-width: 100%; padding: 0 5rem; box-sizing: border-box; }
+      .macro-bar { padding: 1.5rem 0; }
+      .macro-bar-inner { max-width: 100%; padding: 0 5rem; box-sizing: border-box; }
+
+      /* Font scaling */
+      .hero h1 { font-size: 5.5rem; line-height: 1.05; }
+      .hero h1 em { font-size: inherit; }
+      .hero p { font-size: 1.25rem; max-width: 800px; margin-bottom: 2.5rem; }
+      .hero-btns a { font-size: 1.05rem; padding: 1rem 2.5rem; }
       .hero-stat-num { font-size: 2.2rem; }
-      .hero-stat-label { font-size: 0.85rem; }
-      .section-title { font-size: 2.4rem; }
-      .section-sub { font-size: 1rem; }
-      .recipe-title { font-size: 1.3rem; }
+      .hero-stat-label { font-size: 0.9rem; }
+      .hero-stats { gap: 4rem; margin-top: 4rem; padding-top: 2.5rem; }
+      .section-label { font-size: 0.8rem; }
+      .section-title { font-size: 2.6rem; }
+      .section-sub { font-size: 1.05rem; }
+      .recipe-title { font-size: 1.25rem; }
       .recipe-desc { font-size: 0.9rem; }
       .feature-title { font-size: 1.1rem; }
       .feature-desc { font-size: 0.82rem; }
-      .guide-title { font-size: 1.4rem; }
     }
