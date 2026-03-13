@@ -311,9 +311,17 @@
     /* ── RECIPE CARDS ── */
     .recipes-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 1.5rem;
       margin-top: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .recipes-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 500px) {
+      .recipes-grid { grid-template-columns: 1fr; }
     }
 
     .recipe-card {
@@ -595,7 +603,12 @@
 
     .feature-content {
       position: absolute;
-      inset: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -603,8 +616,9 @@
       text-align: center;
       padding: 1.25rem;
       background: rgba(30, 20, 10, 0.35);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      box-sizing: border-box;
     }
 
     .feature-title {
