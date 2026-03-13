@@ -603,8 +603,8 @@
       text-align: center;
       padding: 1.25rem;
       background: rgba(30, 20, 10, 0.35);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
     }
 
     .feature-title {
