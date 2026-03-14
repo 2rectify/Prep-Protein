@@ -35,21 +35,24 @@
   const nav = `
   <nav>
     <a href="index.html" class="nav-logo">Prep &amp; <span>Protein</span></a>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="recipes.html">Recipes</a></li>
-      <li><a href="guides.html">Meal Prep</a></li>
-      <li><a href="shop.html" class="nav-cta">Shop</a></li>
-    </ul>
+    <div class="nav-dropdown">
+      <button class="nav-dropdown-btn" onclick="toggleDropdown()">Explore &#9662;</button>
+      <div class="nav-dropdown-menu" id="navDropdown">
+        <a href="recipes.html">Recipes</a>
+        <a href="guides.html">Meal Prep</a>
+        <a href="what-to-eat-to-lose-weight.html">Nutrition</a>
+        <a href="shop.html">Shop</a>
+      </div>
+    </div>
     <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </nav>
 
   <div class="mobile-menu" id="mobileMenu">
-    <a href="index.html">Home</a>
     <a href="recipes.html">Recipes</a>
-    <a href="guides.html">Meal Prep Guides</a>
+    <a href="guides.html">Meal Prep</a>
+    <a href="what-to-eat-to-lose-weight.html">Nutrition</a>
     <a href="shop.html" class="mob-cta">Shop</a>
   </div>`;
 
@@ -61,7 +64,8 @@
     <div class="footer-links">
       <a href="index.html">Home</a>
       <a href="recipes.html">Recipes</a>
-      <a href="guides.html">Meal Prep Guides</a>
+      <a href="guides.html">Meal Prep</a>
+      <a href="what-to-eat-to-lose-weight.html">Nutrition</a>
       <a href="shop.html">Shop</a>
     </div>
     <p class="footer-copy">&#169; 2026 Prep &amp; Protein. All rights reserved.</p>
@@ -78,5 +82,18 @@
   window.closeMenu = function () {
     document.getElementById('mobileMenu').classList.remove('open');
   };
+
+  // ── DROPDOWN FUNCTIONS ─────────────────────────────────────
+  window.toggleDropdown = function () {
+    document.getElementById('navDropdown').classList.toggle('open');
+  };
+
+  // Close dropdown when clicking anywhere else on the page
+  document.addEventListener('click', function (e) {
+    var dropdown = document.querySelector('.nav-dropdown');
+    if (dropdown && !dropdown.contains(e.target)) {
+      document.getElementById('navDropdown').classList.remove('open');
+    }
+  });
 
 })();
