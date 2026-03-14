@@ -115,8 +115,10 @@ body {
    Height is fixed in px (not rem/vw) so it never balloons.
    Mobile: 64px. Desktop: 72px. That's it. */
 nav {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 200;
   background: var(--purple);
   display: flex;
@@ -126,6 +128,9 @@ nav {
   height: 64px;
   box-shadow: 0 2px 20px rgba(0,0,0,0.2);
 }
+
+/* Push page content below the fixed nav */
+body { padding-top: 64px; }
 
 .nav-logo {
   font-family: var(--condensed);
@@ -203,9 +208,52 @@ nav {
   padding: 0.75rem;
 }
 
-/* MOBILE BASE: hide desktop nav links, show hamburger.
+/* ── NAV DROPDOWN ──────────────────────────────────────────────
+   Single "Explore" button with a dropdown menu.
+   Hidden on mobile (hamburger handles it). Shown at 768px+. */
+.nav-dropdown { position: relative; }
+.nav-dropdown-btn {
+  font-family: var(--body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(250,247,242,0.9);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 0.45rem 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.nav-dropdown-btn:hover { background: rgba(255,255,255,0.18); color: var(--cream); }
+
+.nav-dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: 0;
+  background: var(--white);
+  border-radius: 10px;
+  box-shadow: 0 8px 30px rgba(26,18,11,0.15);
+  min-width: 180px;
+  padding: 0.5rem 0;
+  z-index: 300;
+}
+.nav-dropdown-menu.open { display: block; }
+.nav-dropdown-menu a {
+  display: block;
+  font-family: var(--body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--brown);
+  text-decoration: none;
+  padding: 0.6rem 1.25rem;
+  transition: background 0.15s;
+}
+.nav-dropdown-menu a:hover { background: var(--cream2); }
+
+/* MOBILE BASE: hide desktop dropdown, show hamburger.
    Breakpoint at 768px flips this. */
-.nav-links { display: none; }
+.nav-dropdown { display: none; }
 .hamburger { display: flex; }
 
 
@@ -939,14 +987,13 @@ footer a:hover { text-decoration: underline; }
 
 
 /* ── SMALL DESKTOP (≥ 768px) ──
-   Nav switches from hamburger to inline links.
+   Nav switches from hamburger to dropdown button.
    Typography gets first size bump. Feature strip goes 4-col. */
 @media (min-width: 768px) {
-  .nav-links  { display: flex; }
-  .hamburger  { display: none; }
+  .nav-dropdown { display: block; }
+  .hamburger   { display: none; }
 
   nav { padding: 0 2rem; }
-  .nav-links { gap: 0.5rem; }
 
   .hero { padding: 5rem 2rem; min-height: 500px; }
   .hero h1 { font-size: 3rem; }
@@ -985,9 +1032,9 @@ footer a:hover { text-decoration: underline; }
   /* Nav — slightly taller, bigger logo, but still capped in px.
      NEVER set nav height in rem or vw — it should be a fixed, small bar. */
   nav { height: 72px; padding: 0 3rem; }
+  body { padding-top: 72px; }
   .nav-logo { font-size: 1.75rem; }
-  .nav-links a { font-size: 0.9rem; padding: 0.5rem 1.1rem; }
-  .nav-links { gap: 0.35rem; }
+  .nav-dropdown-btn { font-size: 0.9rem; padding: 0.5rem 1.25rem; }
 
   /* Hero — generous padding but in rem, not vw */
   .hero { padding: 6rem 3rem; min-height: 560px; }
