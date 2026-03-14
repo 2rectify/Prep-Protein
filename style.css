@@ -410,7 +410,7 @@ nav {
   background: linear-gradient(90deg, var(--orange), var(--orange2), var(--lavender));
 }
 .page-hero-inner { position: relative; z-index: 1; }
-.page-hero h2 {
+.page-hero h2, .page-hero h1 {
   font-family: var(--condensed);
   font-size: 1.8rem;
   font-weight: 700;
