@@ -393,11 +393,7 @@ nav {
 /* ══════════════════════════════════
    MISSION BLOCK (homepage ... why we exist)
    ══════════════════════════════════
-   Simple prose block. No fancy layout. The content does the work.
-   Max-width keeps lines readable on wide screens. */
-.mission-block {
-  max-width: 720px;
-}
+   Simple prose block. No fancy layout. The content does the work. */
 .mission-block p {
   font-size: 0.95rem;
   color: var(--grey);
@@ -405,6 +401,29 @@ nav {
   margin-bottom: 1.25rem;
 }
 .mission-block p:last-child { margin-bottom: 0; }
+
+
+/* ══════════════════════════════════
+   CONTENT BLOCK (long-form article pages)
+   ══════════════════════════════════
+   Used for educational/guide pages like what-to-eat-to-lose-weight.
+   No breakpoint overrides needed ... base sizes work at all widths. */
+.content-block h2 {
+  font-family: var(--condensed);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--brown);
+  margin: 2.5rem 0 1rem;
+}
+.content-block h2:first-child { margin-top: 0; }
+.content-block p {
+  font-size: 0.95rem;
+  color: var(--grey);
+  line-height: 1.85;
+  margin-bottom: 1.25rem;
+}
+.content-block p:last-child { margin-bottom: 0; }
+.content-block strong { color: var(--brown); font-weight: 600; }
 
 
 /* ══════════════════════════════════
@@ -709,11 +728,10 @@ nav {
 /* ══════════════════════════════════
    FEATURED STRIP (home page image tiles)
    ══════════════════════════════════
-   This is INTENTIONALLY full-bleed (no max-width container).
-   The image grid stretches edge-to-edge for visual impact.
-   Don't wrap this in --content-max. */
+   Constrained to --content-max so it aligns with recipe cards
+   and all other homepage sections. */
 .featured-strip {
-  padding: 0;
+  padding: 0 var(--content-pad);
   overflow: hidden;
 }
 
@@ -722,7 +740,8 @@ nav {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 4px;
-  width: 100%;
+  max-width: var(--content-max);
+  margin: 0 auto;
 }
 
 .feature-item {
