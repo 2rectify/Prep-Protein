@@ -391,6 +391,23 @@ nav {
 
 
 /* ══════════════════════════════════
+   MISSION BLOCK (homepage ... why we exist)
+   ══════════════════════════════════
+   Simple prose block. No fancy layout. The content does the work.
+   Max-width keeps lines readable on wide screens. */
+.mission-block {
+  max-width: 720px;
+}
+.mission-block p {
+  font-size: 0.95rem;
+  color: var(--grey);
+  line-height: 1.85;
+  margin-bottom: 1.25rem;
+}
+.mission-block p:last-child { margin-bottom: 0; }
+
+
+/* ══════════════════════════════════
    PAGE HERO (sub-pages: recipes, guides, shop)
    ══════════════════════════════════
    Full-bleed purple bar with centered text.
